@@ -111,3 +111,14 @@ button:hover {
     margin-top: -5px;
 }
 
+.arc-text {
+    color: #3D318E; /* Колір тексту */
+    display: inline-block;
+    font-size: 2.5rem; /* Розмір шрифту */
+    position: relative;
+    text-align: center;
+  }
+  
+  
+  
+
