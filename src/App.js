@@ -8,17 +8,39 @@ function URLShortener() {
 
   const handleInputChange = (e) => {
     setUrl(e.target.value);
+    console.log("Change!")
   };
 
-  const handleShortenUrl = () => {
-    // Симуляція скорочення URL (тут можна підключити реальний API)
-    setShortUrl(`https://short.url/${Math.random().toString(36).substring(7)}`);
-    setCopySuccess('');
+  const handleShortenUrl = async () => {
+    try {
+      const response = await fetch('http://localhost:5299/generate?url=' + encodeURIComponent(url), {
+        method: 'POST'
+      });
+  
+      if (response.ok) {
+        const data = await response.text(); 
+        const shortenedUrl = `http://localhost:5299/${data}`;
+        setShortUrl(shortenedUrl);
+        setCopySuccess('');
+      } else {
+        console.error('Error shortening URL');
+        setShortUrl('');
+      }
+    } catch (error) {
+      console.error('Failed to shorten URL:', error);
+      setShortUrl('');
+    }
   };
+  
+  
+  
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(shortUrl)
-      .then(() => setCopySuccess('Copied!'))
+      .then(() => {
+        setCopySuccess('Copied!');
+        setTimeout(() => setCopySuccess(''), 3000);
+      })
       .catch(() => setCopySuccess('Failed to copy'));
   };
   

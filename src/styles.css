@@ -53,7 +53,7 @@ body {
         color: #3D318E;
     }
     50% {
-        transform: scale(0.5) rotate(720deg); /* 720° for a full 2x rotation */
+        transform: scale(0.5) rotate(720deg); 
         color: transparent;
     }
     100% {
