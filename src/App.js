@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles.css';
 
+const BASE_URL = 'http://localhost:5299';
+const GENERATE_URL = `${BASE_URL}/generate?url=`;
+
 function URLShortener() {
   const [url, setUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
@@ -26,19 +29,18 @@ function URLShortener() {
       console.error('Invalid URL');
       setShortUrl('');
       setCopySuccess(''); 
-      // alert('Please enter a valid URL');
       navigate('/invalid-link');
       return;
     }
   
     try {
-      const response = await fetch('http://localhost:5299/generate?url=' + encodeURIComponent(url), {
+      const response = await fetch(GENERATE_URL + encodeURIComponent(url), {
         method: 'POST'
       });
   
       if (response.ok) {
         const data = await response.text();
-        const shortenedUrl = `http://localhost:5299/${data}`;
+        const shortenedUrl = `${BASE_URL}/${data}`;
         setShortUrl(shortenedUrl);
         setCopySuccess('');
       } else {
